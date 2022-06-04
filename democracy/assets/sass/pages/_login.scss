@@ -1,0 +1,52 @@
+.login_main_container{
+  /** 로그인 컨테이너 */
+
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  min-height: 100vh;
+
+  .login_box{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: #c4ddc6 solid;
+    padding: 0.8rem;
+  }
+  &_id_pw{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .el-input__inner {
+    height: 3.6rem !important;
+    padding: 2px 10px 2px 10px !important;
+    font-size: 20px !important;
+  }
+  .el-input__inner::placeholder {
+    padding-left: 1.6rem !important;
+  }
+
+}
+
+.inner-contents{
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+}
+
+.color-site{
+  color: #c4ddc6
+}
+
+body {
+  font-family: 'Gowun Dodum', sans-serif ;
+}
+
+input {
+  font-family: 'Gowun Dodum', sans-serif ;
+}
+

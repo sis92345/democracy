@@ -1,5 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
+  ssr : false,
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -21,7 +22,8 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    "~/assets/sass/main.scss",
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
