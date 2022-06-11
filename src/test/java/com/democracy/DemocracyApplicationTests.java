@@ -1,17 +1,12 @@
 package com.democracy;
 
+import com.democracy.sample.test.TestRepository;
 import com.democracy.util.ApplicationPropertiesUtils;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -19,7 +14,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @SpringBootTest
-@RunWith( SpringJUnit4ClassRunner.class )
+@ExtendWith( SpringExtension.class )
 class DemocracyApplicationTests {
 		
 		static {
@@ -46,4 +41,13 @@ class DemocracyApplicationTests {
 		
 		}
 		
+		
+		@Autowired
+		TestRepository testRepository;
+		
+		@Test
+		public void jpaTest() {
+				
+				System.out.println( testRepository.findAll() );
+		}
 }
