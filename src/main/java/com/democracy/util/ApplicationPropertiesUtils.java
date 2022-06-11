@@ -1,11 +1,14 @@
 package com.democracy.util;
 
+import lombok.Setter;
+
 import java.util.Iterator;
 import java.util.Properties;
 
 /**
  * Application Property 설정
  * */
+@Setter
 public class ApplicationPropertiesUtils {
 		
 		private static final String APPLICATION_ENV_PATH = "/env/";
@@ -38,4 +41,11 @@ public class ApplicationPropertiesUtils {
 						System.setProperty( String.valueOf( key ), String.valueOf( envProperties.get( key ) ) );
 				}
 		}
+		
+		public static void setEnvProperties ( Properties properties ) {
+				
+				envProperties = properties;
+		}
+		
+		
 }

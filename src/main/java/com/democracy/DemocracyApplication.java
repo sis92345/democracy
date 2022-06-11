@@ -7,11 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"com"})
 @Import( AppConfig.class )
-public class DemocracyApplication extends SpringBootServletInitializer {
+public class DemocracyApplication {
 		
 		public static void main( String[] args ) {
 				
@@ -25,17 +27,6 @@ public class DemocracyApplication extends SpringBootServletInitializer {
 				System.out.println( "ENV : " + System.getProperty( "env.status" ) );
 				System.out.println( "==============================================================\n\n"  );
 				
-				SpringApplication democracyApp = new SpringApplication( DemocracyApplication.class );
-				democracyApp.setBanner( new DemocracyBanner() );
-				democracyApp.run( args );
-		}
-		
-		// WAR로 빌드 시 필요
-		@Override
-		protected SpringApplicationBuilder configure( SpringApplicationBuilder applicationBuilder ) {
-				
-				ApplicationPropertiesUtils.initEnvProperties();
-				
-				return applicationBuilder.sources( DemocracyApplication.class );
+				SpringApplication.run( DemocracyApplication.class , args );
 		}
 }
