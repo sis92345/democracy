@@ -13,7 +13,7 @@ public class TestController {
 		
 		@Autowired TestRepository testRepository;
 		
-		@GetMapping( value = "/test")
+		@RequestMapping( value = "/test")
 		public ResponseEntity<?> test() {
 				
 				return ResponseEntity.ok( testRepository.findAll() );
