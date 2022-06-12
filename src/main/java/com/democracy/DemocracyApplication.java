@@ -29,8 +29,6 @@ public class DemocracyApplication {
 				System.out.println( "ENV : " + System.getProperty( "env.status" ) );
 				System.out.println( "==============================================================\n\n"  );
 				
-				SpringApplication.run( DemocracyApplication.class , args );
-				
 				SpringApplication democracyApp = new SpringApplication( DemocracyApplication.class );
 				democracyApp.setBanner( new DemocracyBanner() );
 				democracyApp.run( args );
