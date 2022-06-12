@@ -10,6 +10,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
+import javax.swing.*;
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"com"})
 @Import( AppConfig.class )
@@ -28,5 +30,9 @@ public class DemocracyApplication {
 				System.out.println( "==============================================================\n\n"  );
 				
 				SpringApplication.run( DemocracyApplication.class , args );
+				
+				SpringApplication democracyApp = new SpringApplication( DemocracyApplication.class );
+				democracyApp.setBanner( new DemocracyBanner() );
+				democracyApp.run( args );
 		}
 }
