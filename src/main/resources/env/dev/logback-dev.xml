@@ -1,0 +1,51 @@
+<included>
+
+    <!-- LOG 홈 설정 -->
+    <property name="LOG_DIR" value="./log" />
+
+    <timestamp key="FILE_NAME_BY_SECOND" datePattern="yyyyMMdd 'T' HHmmss " />
+
+    <!-- 로그 꾸미는 용도 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <!-- APPENDER : 로그를 출력 할 위치, 출력 형식 등을 설정 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%clr([ %-5level]){cyan} : %clr(%d{HH:mm:ss.SSS}){grey} %clr(%C){red} %msg%n%n %X{TimeUnit}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 일반적인 FILE APPENDER -->
+    <appender name="BRIDGE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${JAVA_STUDY_HOME}/logs/${StopwatchName}/logFile.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+
+        </rollingPolicy>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>[ %-5level] [%d{HH:mm:ss.SSS}] at %C %X{request} : #%X{return}%n%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- com.spring.stream LOG, 더블 log 방지를 위해 additivity를 false로 추가 -->
+    <logger name="BRIDGE_LOG" level="info" additivity="false">
+        <appender-ref ref="BRIDGE_LOG" />
+    </logger>
+    <!-- ROOT에 APPENDER를 추가 -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</included>
