@@ -1,6 +1,8 @@
 package com.democracy;
 
 import com.democracy.config.StandardSpringTest;
+import com.democracy.member.MemberRepository;
+import com.democracy.member.vo.Member;
 import com.democracy.sample.test.TestData;
 import com.democracy.sample.test.TestRepository;
 import org.junit.jupiter.api.Assertions;
@@ -8,12 +10,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 class JPAConnectionTest extends StandardSpringTest {
 		
 		@Autowired
 		TestRepository testRepository;
+		
+		@Autowired MemberRepository memberRepository;
 		
 		@Test
 		@DisplayName( "JPA 연결이 잘 되는지 테스트" )
@@ -38,5 +43,21 @@ class JPAConnectionTest extends StandardSpringTest {
 						return  "";
 				});
 				
+		}
+		
+		@Test
+		@DisplayName( "member 테이블 저장 테스트" )
+		public void SAVE_MEMBER_TEST() {
+				
+				Member member = new Member();
+				member.setId( "asd1234" );
+				member.setInputDate( LocalDate.now() );
+				member.setEmail( "test@example.co.kr" );
+				member.setJoinType( 0 );
+				member.setPassword( "test1" );
+				
+				member = memberRepository.save( member );
+				
+				System.out.println( member );
 		}
 }
