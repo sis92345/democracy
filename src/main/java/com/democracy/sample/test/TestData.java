@@ -16,6 +16,6 @@ import javax.persistence.*;
 public class TestData {
 		
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private String USER_NAME;
+		@Column( name = "USER_NAME" )
+		private String userName;
 }
