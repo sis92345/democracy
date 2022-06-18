@@ -1,11 +1,9 @@
 package com.democracy.config;
 
-import com.democracy.util.ApplicationPropertiesUtils;
+import com.democracy.common.util.ApplicationPropertiesUtils;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
