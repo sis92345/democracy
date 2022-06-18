@@ -1,0 +1,6 @@
+<configuration debug="true">
+
+
+    <include resource="./env/local/logback-local.xml" />
+
+</configuration>
