@@ -1,8 +1,9 @@
 package com.democracy;
 
 import com.democracy.config.StandardSpringTest;
-import com.democracy.member.MemberRepository;
-import com.democracy.member.vo.Member;
+import com.democracy.member.service.MemberRepository;
+import com.democracy.member.dto.Member;
+import com.democracy.member.service.MemberService;
 import com.democracy.sample.test.TestData;
 import com.democracy.sample.test.TestRepository;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +19,12 @@ class JPAConnectionTest extends StandardSpringTest {
 		@Autowired
 		TestRepository testRepository;
 		
-		@Autowired MemberRepository memberRepository;
+		@Autowired
+		MemberRepository memberRepository;
+		
+		@Autowired MemberService memberService;
+		
+		
 		
 		@Test
 		@DisplayName( "JPA 연결이 잘 되는지 테스트" )
@@ -56,7 +62,7 @@ class JPAConnectionTest extends StandardSpringTest {
 				member.setJoinType( 0 );
 				member.setPassword( "test1" );
 				
-				member = memberRepository.save( member );
+				member = memberService.save( member );
 				
 				System.out.println( member );
 		}

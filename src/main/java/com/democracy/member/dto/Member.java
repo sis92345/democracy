@@ -1,6 +1,5 @@
-package com.democracy.member.vo;
+package com.democracy.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
