@@ -36,17 +36,19 @@ CREATE TABLE 'chatting' (
 CREATE TABLE `user_chatting_group` (
 	`gpk`	varchar(36)	NOT NULL comment '채팅 그룹 PK',
 	`id`	varchar(16)	NOT NULL comment '채팅 유저 PK',
-	`pk`	varchar(36)	NOT NULL comment '채팅방 PK',
-    PRIMARY KEY( 'gpk' )
-
+	`pk`	varchar(36)	NOT NULL comment '채팅방 PK'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE user_chatting_group ADD CONSTRAINT group_pk PRIMARY KEY (gpk);
 
 CREATE TABLE `file` (
 	`pk`	varchar(36)	NOT NULL comment '파일 PK',
 	`target_pk`	varchar(36)	NULL comment '파일 Target PK',
 	`target_type`	int	NULL comment '파일 Target 타입',
 	`file_name`	varchar(255)	NULL comment '파일 이름',
-	`ext`	varchar(5)	NULL comment '파일 확장자',
-    PRIMARY KEY( 'pk' )
+	`ext`	varchar(5)	NULL comment '파일 확장자'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE file ADD CONSTRAINT group_pk PRIMARY KEY (pk);
+
 
