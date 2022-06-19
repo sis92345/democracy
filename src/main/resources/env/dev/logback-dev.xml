@@ -3,6 +3,9 @@
     <!-- LOG 홈 설정 -->
     <property name="LOG_DIR" value="./log" />
 
+    <!-- 표준 LOG 패턴 -->
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} [%file:%line] -%msg%n"/>
+
     <timestamp key="FILE_NAME_BY_SECOND" datePattern="yyyyMMdd 'T' HHmmss " />
 
     <!-- 로그 꾸미는 용도 -->
@@ -16,36 +19,93 @@
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <withJansi>true</withJansi>
         <encoder>
-            <pattern>%clr([ %-5level]){cyan} : %clr(%d{HH:mm:ss.SSS}){grey} %clr(%C){red} %msg%n%n %X{TimeUnit}</pattern>
+            <pattern>%clr([%-5level]){cyan} : %clr(%d{HH:mm:ss.SSS}){grey} %clr(%C){red} %msg%n</pattern>
         </encoder>
     </appender>
 
     <!-- 일반적인 FILE APPENDER -->
     <appender name="BRIDGE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${JAVA_STUDY_HOME}/logs/${StopwatchName}/logFile.log</file>
+        <file>${LOG_DIR}/bridge/bridge.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>bridge.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>3</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+
         <encoder>
-            <pattern>[ %-5level] [%d{HH:mm:ss.SSS}] at %C %X{request} : #%X{return}%n%n</pattern>
+            <pattern>[%-5level] [%d{HH:mm:ss.SSS}] at %C %X{requestUUID} : param[#%X{parameter}] %n return[#%X{return}]%n</pattern>
         </encoder>
     </appender>
 
-    <!-- com.spring.stream LOG, 더블 log 방지를 위해 additivity를 false로 추가 -->
+    <appender name="SQL_QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/sql/sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/sql/sql.%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %cyan(%C) : [%thread] %-5level %logger{36} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- root에서 사용하기 위해 filter를 추가 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <file>${LOG_DIR}/error/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>error.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} [%file:%line] -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- SQL 관련 -->
+    <!-- SQL CONNECTION : Connection Pool 관련 설정-->
+    <logger name="jdbc.connection" level="OFF"/>
+    <!-- SQL LOGGER 설정 : RESULT_SET을 포함한 모든 JDBC 호출 정보-->
+    <logger name="jdbc.resultset" level="OFF"/>
+    <!-- SQL AUDIT : RESULT_SET을 제외한 모든 JDBC 호출 정보 로그  -->
+    <logger name="jdbc.audit" level="OFF"/>
+    <!-- SQL ONLY : SQL 문 만을 로그로 처리 -->
+    <logger name="jdbc.sqlonly" level="OFF" />
+    <!-- SQL RESULTSETTABLE : SQL 결과를 테이블로 표현-->
+    <logger name="jdbc.resultsettable" level="OFF" />
+    <!-- SQL TIMING : SQL 과 실행 시간을 처리한다.-->
+    <logger name="jdbc.sqltiming" level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SQL_QUERY"/>
+    </logger>
+    <logger name="net.sf.log4jdbc.log.log4j2.Log4j2SpyLogDelegator" level="OFF"/>
+
+    <!-- 커스텀 로그 설정 -->
     <logger name="BRIDGE_LOG" level="info" additivity="false">
         <appender-ref ref="BRIDGE_LOG" />
     </logger>
-    <!-- ROOT에 APPENDER를 추가 -->
+
+    <!-- ERROR LOG-->
+    <logger name="ERROR" level="ERROR" additivity="false">
+        <appender-ref ref="ERROR" />
+    </logger>
+
+    <!-- Root : 모든 Error 로그를 수집 -->
     <root level="info">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="ERROR" />
     </root>
 
 </included>

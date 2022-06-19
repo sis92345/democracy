@@ -36,7 +36,19 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>[%-5level] [%d{HH:mm:ss.SSS}] at %C %X{requestUUID} : #%X{parameter}%n%n</pattern>
+            <pattern>[%-5level] [%d{HH:mm:ss.SSS}] at %C %X{requestUUID} : param[#%X{parameter}] %n return[#%X{return}]%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SQL_QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/sql/sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/sql/sql.%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %cyan(%C) : [%thread] %-5level %logger{36} - %msg %n</pattern>
         </encoder>
     </appender>
 
@@ -61,6 +73,24 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} [%file:%line] -%msg%n</pattern>
         </encoder>
     </appender>
+
+    <!-- SQL 관련 -->
+    <!-- SQL CONNECTION : Connection Pool 관련 설정-->
+    <logger name="jdbc.connection" level="OFF"/>
+    <!-- SQL LOGGER 설정 : RESULT_SET을 포함한 모든 JDBC 호출 정보-->
+    <logger name="jdbc.resultset" level="OFF"/>
+    <!-- SQL AUDIT : RESULT_SET을 제외한 모든 JDBC 호출 정보 로그  -->
+    <logger name="jdbc.audit" level="OFF"/>
+    <!-- SQL ONLY : SQL 문 만을 로그로 처리 -->
+    <logger name="jdbc.sqlonly" level="OFF" />
+    <!-- SQL RESULTSETTABLE : SQL 결과를 테이블로 표현-->
+    <logger name="jdbc.resultsettable" level="OFF" />
+    <!-- SQL TIMING : SQL 과 실행 시간을 처리한다.-->
+    <logger name="jdbc.sqltiming" level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SQL_QUERY"/>
+    </logger>
+    <logger name="net.sf.log4jdbc.log.log4j2.Log4j2SpyLogDelegator" level="OFF"/>
 
     <!-- 커스텀 로그 설정 -->
     <logger name="BRIDGE_LOG" level="info" additivity="false">

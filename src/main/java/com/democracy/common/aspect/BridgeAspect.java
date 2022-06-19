@@ -39,6 +39,12 @@ public class BridgeAspect {
 				finally {
 						
 						MDCUtils.put( "parameter" , sb.toString() );
+						
+						
+						if ( result != null )  {
+								MDCUtils.put( "return" , result.toString() );
+						}
+						
 						String requestUUID = MDCUtils.get( "requestUUID" );
 						
 						sb.append( " / " ).append( requestUUID );
