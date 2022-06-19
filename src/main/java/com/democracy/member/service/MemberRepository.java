@@ -1,6 +1,6 @@
-package com.democracy.member;
+package com.democracy.member.service;
 
-import com.democracy.member.vo.Member;
+import com.democracy.member.dto.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member,String> {

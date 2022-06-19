@@ -1,8 +1,8 @@
-package com.democracy.member.vo;
+package com.democracy.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Entity
 @Component
 @Table( name = "member" )
+@ToString
 public class Member {
 		
 		@Id

@@ -2,15 +2,11 @@ package com.democracy;
 
 import com.democracy.config.AppConfig;
 import com.democracy.config.DemocracyBanner;
-import com.democracy.util.ApplicationPropertiesUtils;
+import com.democracy.common.util.ApplicationPropertiesUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-
-import javax.swing.*;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com"})

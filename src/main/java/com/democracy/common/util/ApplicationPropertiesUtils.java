@@ -1,8 +1,7 @@
-package com.democracy.util;
+package com.democracy.common.util;
 
 import lombok.Setter;
 
-import java.util.Iterator;
 import java.util.Properties;
 
 /**
