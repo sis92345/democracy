@@ -7,9 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
+import org.slf4j.MDC;
 
 @Aspect
 public class BridgeAspect {
@@ -38,6 +36,10 @@ public class BridgeAspect {
 				finally {
 						
 						MDCUtils.put( "parameter" , sb.toString() );
+						String requestUUID = MDCUtils.get( "requestUUID" );
+						
+						sb.append( " / " ).append( requestUUID );
+						
 						log.info( sb.toString() );
 						bridgeLog.info( "" );
 				}

@@ -1,6 +1,8 @@
 <configuration debug="true">
 
+    <!-- ENV 설정을 위해 isDefined을 사용 -->
 
-    <include resource="./env/local/logback-local.xml" />
+    <include resource="./env/${spring.profiles.active}/logback-${spring.profiles.active}.xml" />
+
 
 </configuration>

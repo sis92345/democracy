@@ -3,6 +3,9 @@
     <!-- LOG 홈 설정 -->
     <property name="LOG_DIR" value="./log" />
 
+    <!-- 표준 LOG 패턴 -->
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} [%file:%line] -%msg%n"/>
+
     <timestamp key="FILE_NAME_BY_SECOND" datePattern="yyyyMMdd 'T' HHmmss " />
 
     <!-- 로그 꾸미는 용도 -->
@@ -16,7 +19,7 @@
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <withJansi>true</withJansi>
         <encoder>
-            <pattern>%clr([ %-5level]){cyan} : %clr(%d{HH:mm:ss.SSS}){grey} %clr(%C){red} %msg%n%n %X{BridgeParameter}</pattern>
+            <pattern>%clr([%-5level]){cyan} : %clr(%d{HH:mm:ss.SSS}){grey} %clr(%C){red} %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -27,25 +30,52 @@
             <!-- daily rollover -->
             <fileNamePattern>bridge.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-            <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>3</maxHistory>
             <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+
         <encoder>
-            <pattern>[ %-5level] [%d{HH:mm:ss.SSS}] at %C %X{request} : #%X{parameter}%n%n</pattern>
+            <pattern>[%-5level] [%d{HH:mm:ss.SSS}] at %C %X{requestUUID} : #%X{parameter}%n%n</pattern>
         </encoder>
     </appender>
 
-    <!-- com.spring.stream LOG, 더블 log 방지를 위해 additivity를 false로 추가 -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- root에서 사용하기 위해 filter를 추가 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <file>${LOG_DIR}/error/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>error.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} [%file:%line] -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 커스텀 로그 설정 -->
     <logger name="BRIDGE_LOG" level="info" additivity="false">
         <appender-ref ref="BRIDGE_LOG" />
     </logger>
-    <!-- ROOT에 APPENDER를 추가 -->
+
+    <!-- ERROR LOG-->
+    <logger name="ERROR" level="ERROR" additivity="false">
+        <appender-ref ref="ERROR" />
+    </logger>
+
+    <!-- Root : 모든 Error 로그를 수집 -->
     <root level="info">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="ERROR" />
     </root>
 
 </included>
