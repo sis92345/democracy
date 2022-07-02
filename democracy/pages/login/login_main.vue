@@ -1,10 +1,11 @@
 <template>
   <div  class="login_main_container">
     <div class="login_box">
-      <img src="@/assets/image/logo/democracy2.png"  alt="logo"/>
+      <img class="logo" src="@/assets/image/logo/democracy3.png"  alt="logo"/>
       <div class="login_box_id_pw">
         <div class="inner-contents mtb-05">
           <el-input v-model="id"
+                    le
                     prefix-icon="el-icon-user"
                     placeholder="아이디"/>
         </div>
