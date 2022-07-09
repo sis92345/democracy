@@ -4,12 +4,12 @@
       <q-card-section>
         <img
             alt="Quasar logo"
-            src="~/assets/logo.svg"
+            src="@/assets/image/logo/democracy3.png"
             style="width: 200px; height: 200px"
         />
       </q-card-section>
       <q-card-section>
-        <p class="text-center">@NUXT3 Beta: vue@{{ version }}</p>
+        <p class="text-center">@NUXT3 ?Beta: vue@{{ version }}</p>
       </q-card-section>
     </q-card>
   </q-page>
