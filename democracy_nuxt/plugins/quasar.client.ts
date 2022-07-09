@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '#app'
-import { Quasar, QPage, QBtn, QToolbarTitle, QToolbar, QCard, QCardSection, QPageContainer, QDrawer, QLayout, QList, QHeader, QItemLabel, QIcon, QItemSection, QItem } from 'quasar';
+import { Quasar, QPage, QBtn, QToolbarTitle, QToolbar, QCard, QCardSection, QPageContainer, QDrawer, QLayout, QList, QHeader, QItemLabel, QIcon, QItemSection, QItem, QParallax, QInput } from 'quasar';
 
 export default defineNuxtPlugin(nuxtApp => {
 
@@ -19,7 +19,9 @@ export default defineNuxtPlugin(nuxtApp => {
             QItemLabel,
             QIcon,
             QItemSection,
-            QItem
+            QItem,
+            QParallax,
+            QInput
         },
         plugins: {},
     };

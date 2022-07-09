@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     // ssr: false,
     css: [
         "~/assets/styles/quasar.sass",
+        "~/assets/sass/main.scss",
         "@quasar/extras/roboto-font/roboto-font.css",
         "@quasar/extras/material-icons/material-icons.css",
     ],
@@ -13,14 +14,7 @@ export default defineNuxtConfig({
         transpile: ["quasar"],
     },
     vite: {
-        //define: {
-        //  __QUASAR_SSR__: true,
-        //  __QUASAR_SSR_SERVER__: true
-        //},
         plugins: [
-            //vue({
-            // template: { transformAssetUrls },
-            //}),
             quasar({
                 sassVariables: "assets/styles/quasar.variables.sass",
             }),
