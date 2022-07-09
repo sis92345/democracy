@@ -1,13 +1,10 @@
-<template>
-  <div>
-	  <div>
-		  <test />
-	  </div>
-  </div>
-</template>
-<script>
-import Test from "./page/test"
-export default {
-	components : { Test }
-}
+<script setup lang="ts">
 </script>
+<template>
+	<div>
+		<!-- Markup shared across all pages, ex: NavBar -->
+		<NuxtLayout>
+			<NuxtPage/>
+		</NuxtLayout>
+	</div>
+</template>
