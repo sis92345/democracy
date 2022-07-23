@@ -22,7 +22,7 @@ public class MemberController {
 				return ResponseEntity.ok( memberService.save( member ) );
 		}
 		
-		@RequestMapping( "/find_mameber" )
+		@RequestMapping( "/api/find_mameber" )
 		public ResponseEntity<?> findMember () {
 				
 				return ResponseEntity.ok( memberRepository.findAll() );

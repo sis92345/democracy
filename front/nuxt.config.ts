@@ -13,5 +13,20 @@ export default defineNuxtConfig({
         transpile: lifecycle === "build" ? ["element-plus"] : []
     },
     buildModules: ['@pinia/nuxt'],
-    modules: ["@nuxtjs/axios"],
+
+    modules: ['nuxt-proxy'],
+
+    proxy: {
+        options: {
+            target: 'http://localhost:8080',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': '/api'
+            },
+            pathFilter: [
+                '/api'
+            ]
+
+        }
+    }
 })
