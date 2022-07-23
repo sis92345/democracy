@@ -8,11 +8,10 @@ export default defineNuxtConfig({
         "~/assets/sass/index.scss",
         "~/assets/sass/main.scss"
     ],
-
+    buildModules: ['@pinia/nuxt'],
     build: {
         transpile: lifecycle === "build" ? ["element-plus"] : []
     },
-    buildModules: ['@pinia/nuxt'],
 
     modules: ['nuxt-proxy'],
 
