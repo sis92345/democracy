@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     ],
 
     build: {
-        transpile: lifecycle === "build" ? ["element-plus"] : [],
+        transpile: lifecycle === "build" ? ["element-plus"] : []
     },
+    buildModules: ['@pinia/nuxt'],
 })
