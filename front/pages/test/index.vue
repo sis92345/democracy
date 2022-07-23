@@ -1,4 +1,8 @@
 <template>
+	<div>
+		<el-button>Default</el-button>
+		<el-icon></el-icon>
+	</div>
 </template>
 <script>
 export default {
