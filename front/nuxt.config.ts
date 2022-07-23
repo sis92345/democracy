@@ -4,9 +4,10 @@ import { defineNuxtConfig } from 'nuxt'
 const lifecycle = process.env.npm_lifecycle_event;
 export default defineNuxtConfig({
 
-    css: ["~/assets/scss/index.scss"],
+    css: ["~/assets/sass/index.scss"],
 
     build: {
-        transpile: lifecycle === "build" ? ["element-plus"] : [],
+        transpile: lifecycle === "build" ? ["element-plus"] : []
     },
+    buildModules: ['@pinia/nuxt'],
 })
