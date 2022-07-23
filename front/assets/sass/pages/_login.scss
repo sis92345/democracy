@@ -1,0 +1,88 @@
+.login_main_container{
+  /** 로그인 컨테이너 */
+  background-color: #c4ddc6;
+
+
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  min-height: 100vh;
+
+  .login_box{
+    background-color: white;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: #d3d3d3 solid;
+    border-radius: 10px;
+    padding: 0.8rem;
+    min-width: 500px;
+    min-height: 500px;
+    &_id_pw{
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      input {
+        min-width: 26rem;
+      }
+    }
+
+    .el-input__inner {
+      height: 3.6rem !important;
+      padding: 2px 10px 2px 10px !important;
+      font-size: 20px !important;
+
+      &:focus {
+        border-color: #A4D2A8 !important;
+      }
+    }
+    .el-input__inner::placeholder {
+      padding-left: 1.6rem !important;
+    }
+
+    .logo {
+      width : 180px;
+      height: 150px;
+    }
+
+  }
+
+  .mtb-05 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .mtb-2 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  img{
+    padding-bottom: 2rem;
+  }
+
+}
+
+.inner-contents{
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+}
+
+.color-site{
+  color: #c4ddc6
+}
+
+body {
+  font-family: 'Hahmlet', sans-serif ;
+}
+
+input {
+  font-family: 'Hahmlet', sans-serif ;
+}
+

@@ -12,7 +12,7 @@ public class DataSourceConfig {
 				
 				HikariConfig hikariConfig = new HikariConfig();
 				
-				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://54.180.159.93:3306/democracy" );
+				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://15.165.158.252:3306/democracy" );
 				hikariConfig.setUsername( "democracy" );
 				hikariConfig.setPassword( "1234" );
 				hikariConfig.setDriverClassName( "net.sf.log4jdbc.sql.jdbcapi.DriverSpy" );
@@ -37,7 +37,7 @@ public class DataSourceConfig {
 				
 				HikariConfig hikariConfig = new HikariConfig();
 				
-				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://54.180.159.93:3306/democracy" );
+				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://15.165.158.252:3306/democracy" );
 				hikariConfig.setUsername( "democracy" );
 				hikariConfig.setPassword( "1234" );
 				hikariConfig.setDriverClassName( "net.sf.log4jdbc.sql.jdbcapi.DriverSpy" );
