@@ -1,78 +1,67 @@
 package com.democracy.member.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-
+@Getter
+@Setter
+@Entity
+@Table( name = "member" )
+@ToString
 public class User implements UserDetails {
 
-    private String userId;
-    private String userPw;
-    private String userName;
-    private String userRole;
-    private LocalDateTime insertDt;
-    private LocalDateTime updateDt;
-
+    @Id
+    private String id;
+    private String password;
+    private String name;
+    private String roll;
+    private String email;
+    @Column( name = "join_type" )
+    private Integer join_type;
+    @Column( name = "input_date" )
+    private LocalDateTime input_date;
 
 
     public User(String userId, String userPw, String userName) {
-        this.userId = userId;
-        this.userPw = userPw;
-        this.userName = userName;
-        this.userRole = "USER";
-        this.insertDt = LocalDateTime.now();
+        this.id = userId;
+        this.password = userPw;
+        this.name = userName;
+        this.roll = "USER";
+        this.input_date = LocalDateTime.now();
+    }
+
+    public User() {
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.userRole));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.roll));
     }
 
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        return this.userPw;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        return this.userId;
+        return this.id;
     }
-
-    public String getUserRealName() {
-        return this.userName;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
-    public LocalDateTime getInsertDt() {
-        return insertDt;
-    }
-
-    public void setInsertDt(LocalDateTime insertDt) {
-        this.insertDt = insertDt;
-    }
-
-    public LocalDateTime getUpdateDt() {
-        return updateDt;
-    }
-
-    public void setUpdateDt(LocalDateTime updateDt) {
-        this.updateDt = updateDt;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         // TODO Auto-generated method stub
@@ -95,5 +84,37 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         // TODO Auto-generated method stub
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getJoin_type() {
+        return join_type;
+    }
+
+    public void setJoin_type(int join_type) {
+        this.join_type = join_type;
+    }
+
+    public LocalDateTime getInput_date() {
+        return input_date;
+    }
+
+    public void setInput_date(LocalDateTime input_date) {
+        this.input_date = input_date;
     }
 }

@@ -22,17 +22,15 @@ export default defineNuxtConfig({
 
     modules: ['nuxt-proxy'],
 
-    proxy: {
-        options: {
-            target: 'http://localhost:8080',
-            changeOrigin: true,
-            pathRewrite: {
-                '^/api': '/api'
+    vite: {
+        server: {
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:8080',
+                    changeOrigin: true,
+                    secure: false,
+                },
             },
-            pathFilter: [
-                '/api'
-            ]
-
-        }
-    }
+        },
+    },
 })

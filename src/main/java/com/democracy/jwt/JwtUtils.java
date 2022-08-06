@@ -16,14 +16,14 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
 
-    @Value("${local.app.jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
 
-    @Value("${local.app.jwt.expire-timeout}")
+    @Value("${app.jwt.expire-timeout}")
     private long accessExpiration;
 
-    @Value("${local.app.jwt.refresh-timeout}")
+    @Value("${app.jwt.refresh-timeout}")
     private long refreshExpiration;
 
 

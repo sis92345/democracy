@@ -1,27 +1,32 @@
 package com.democracy.member.service.impl;
 
+import com.democracy.member.dto.User;
 import com.democracy.member.service.CustomUserDetailsService;
-import com.democracy.member.service.UserService;
+import com.democracy.member.service.JwtUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private JwtUserRepository jwtUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserVO user = userService.select(username);
+        Optional<User> op = jwtUserRepository.findById(username);
 
-//        if (user == null) {
-//            throw new UsernameNotFoundException("User not authorized.");
-//        }
+        User user = op.orElse(null);
 
-//        return user;
-        return null;
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not authorized.");
+        }
+
+        return user;
     }
 }
