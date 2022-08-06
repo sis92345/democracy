@@ -5,13 +5,12 @@
  * */
 const getMetaSetting = function() : object {
 
-    console.log( "======= START META SETTING =======" );
     /**
      * @typedef nuxtMetaObject
      * */
     return {
         head : {
-            title : process.env.SITE_NAME || 'Democracy',
+            title : 'Democracy',
             meta : [
                 { charset : "utf-8" },
                 { "http-equiv" : "X-UA-Compatible", content : "IE=edge,chrome=1" },
