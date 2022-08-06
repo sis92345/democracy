@@ -1,9 +1,9 @@
 package com.democracy.jwt;
 
+import com.democracy.common.util.ApplicationPropertiesUtils;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -16,15 +16,14 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
 
-    @Value("${app.jwt.secret}")
-    private String jwtSecret;
+
+    private static  String jwtSecret = ApplicationPropertiesUtils.getValue( "app.jwt.secret" , "123123123123123" );
 
 
-    @Value("${app.jwt.expire-timeout}")
-    private long accessExpiration;
+    private static long accessExpiration = Long.parseLong(ApplicationPropertiesUtils.getValue( "app.jwt.expire-timeout" , "40" ));
 
-    @Value("${app.jwt.refresh-timeout}")
-    private long refreshExpiration;
+
+    private static  long refreshExpiration =Long.parseLong(ApplicationPropertiesUtils.getValue( "app.jwt.refresh-timeout" , "40" )); ;
 
 
     @PostConstruct
@@ -53,6 +52,7 @@ public class JwtUtils {
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
+
 
     public boolean validateJwtToken(String authToken) {
         try {
