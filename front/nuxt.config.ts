@@ -1,8 +1,15 @@
 import { defineNuxtConfig } from 'nuxt'
+import {getMetaSetting} from "./config/metaConfig";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 const lifecycle = process.env.npm_lifecycle_event;
 export default defineNuxtConfig({
+
+
+    app : {
+        ...getMetaSetting()
+    },
+
 
     css: [
         "~/assets/sass/index.scss",
