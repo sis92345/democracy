@@ -22,7 +22,8 @@ public class DemocracyApplication {
 				ApplicationPropertiesUtils.initEnvProperties();
 				
 				System.out.println( "=================== Democracy Server INFO ==================="  );
-				System.out.println( "ENV : " + System.getProperty( "env.status" ) );
+				System.out.println( "ENV : " + ApplicationPropertiesUtils.getValue( "spring.profiles.active" , "local" ) );
+				System.out.println( "timeout : " + ApplicationPropertiesUtils.getValue( "local.app.jwt.expire-timeout" , "40" ) );
 				System.out.println( "==============================================================\n\n"  );
 				
 				SpringApplication democracyApp = new SpringApplication( DemocracyApplication.class );

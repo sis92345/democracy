@@ -1,6 +1,7 @@
 package com.democracy.common.util;
 
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 import java.util.Properties;
 
@@ -44,6 +45,16 @@ public class ApplicationPropertiesUtils {
 		public static void setEnvProperties ( Properties properties ) {
 				
 				envProperties = properties;
+		}
+		
+		public static String getValue(String key ) {
+				return 	envProperties == null ? "" : envProperties.getProperty(key);
+		}
+		
+		
+		public static String getValue(String key , String defaultVal ) {
+				String property = getValue( key );
+				return StringUtils.isEmpty( property ) ? defaultVal : property;
 		}
 		
 		
