@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private String id;
     private String password;
     private String name;
-    private String roll;
+    private String role;
     private String email;
     @Column( name = "join_type" )
     private Integer join_type;
@@ -37,7 +37,7 @@ public class User implements UserDetails {
         this.id = userId;
         this.password = userPw;
         this.name = userName;
-        this.roll = "USER";
+        this.role = "USER";
         this.input_date = LocalDateTime.now();
     }
 
@@ -48,7 +48,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.roll));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role));
     }
 
     @Override
