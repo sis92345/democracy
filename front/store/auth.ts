@@ -1,15 +1,15 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 import axios from "axios";
 
-export const authInfo = defineStore({
-    id:'auth',
+export const useAuthStore = defineStore({
+    id: "auth",
     state: () => ({
         user: JSON.parse(localStorage.getItem("user")),
         isLogin: null,
         reissue: false,
     }),
     getters: {},
-    actions:{
+    actions: {
         setUser(user) {
             this.user = user;
             localStorage.setItem("user", JSON.stringify(user));
@@ -33,5 +33,72 @@ export const authInfo = defineStore({
                     onError(err);
                 });
         },
-    }
-})
+        check(onSuccess, onError) {
+            const data = {
+                accessToken: this.user.accessToken,
+                refreshToken: this.user.refreshToken,
+            };
+            axios
+                .post("/api/auth/check", data)
+                .then((res) => {
+                    this.user.accessToken = res.data.result[0].accessToken;
+                    this.user.refreshToken = res.data.result[0].refreshToken;
+                    this.setUser(this.user);
+                    onSuccess(res);
+                })
+                .catch((err) => {
+                    this.isLogin = false;
+                    if (onError != null) {
+                        onError(err);
+                    }
+                });
+        },
+        async reissueToken() {
+            const data = {
+                refreshToken: this.user.refreshToken,
+            };
+            try {
+                if (!this.reissue) {
+                    this.reissue = true;
+                    const rtn = await axios.post("/api/auth/reissue", data);
+                    this.reissue = false;
+                    this.user.accessToken = rtn.data.result[0].accessToken;
+                    this.user.refreshToken = rtn.data.result[0].refreshToken;
+                    this.setUser(this.user);
+                } else {
+                    let cnt = 0;
+                    while (this.reissue && cnt < 10) {
+                        await sleep(1000);
+                        cnt++;
+                    }
+                }
+                return true;
+            } catch (err) {
+                if (err.response.data != null) {
+                    this.reissue = false;
+                    this.setUser(null);
+                }
+                return false;
+            }
+        },
+        join(data, onSuccess, onError) {
+            axios
+                .post("/api/auth/join", data)
+                .then((res) => {
+                    onSuccess(res);
+                })
+                .catch((err) => {
+                    onError(err);
+                });
+        },
+        logout(onSuccess) {
+            this.setUser(null);
+            onSuccess();
+            // location.href = "/";
+        },
+    },
+});
+
+function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+}
