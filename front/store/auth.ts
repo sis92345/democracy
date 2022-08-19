@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import {Integer} from "~node_modules/type-fest";
 
 export const useAuthStore = defineStore({
     id: "auth",
@@ -10,7 +11,7 @@ export const useAuthStore = defineStore({
     }),
     getters: {},
     actions: {
-        setUser(user) {
+        setUser(user:JSON) {
             this.user = user;
             localStorage.setItem("user", JSON.stringify(user));
             if (user != null) {
@@ -19,7 +20,7 @@ export const useAuthStore = defineStore({
                 this.isLogin = false;
             }
         },
-        login(data, onSuccess, onError) {
+        login(data:JSON, onSuccess:Function, onError:Function) {
             axios
                 .post("/api/auth/login", data)
                 .then((res) => {
@@ -33,7 +34,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        check(onSuccess, onError) {
+        check(onSuccess:Function, onError:Function) {
             const data = {
                 accessToken: this.user.accessToken,
                 refreshToken: this.user.refreshToken,
@@ -81,7 +82,7 @@ export const useAuthStore = defineStore({
                 return false;
             }
         },
-        join(data, onSuccess, onError) {
+        join(data:JSON, onSuccess:Function, onError:Function) {
             axios
                 .post("/api/auth/join", data)
                 .then((res) => {
@@ -91,7 +92,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        logout(onSuccess) {
+        logout(onSuccess:Function  ) {
             this.setUser(null);
             onSuccess();
             // location.href = "/";
@@ -99,6 +100,6 @@ export const useAuthStore = defineStore({
     },
 });
 
-function sleep(ms) {
+function sleep(ms:number) {
     return new Promise((r) => setTimeout(r, ms));
 }
