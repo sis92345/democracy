@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import {Integer} from "~node_modules/type-fest";
 
 export const useAuthStore = defineStore({
     id: "auth",
@@ -11,7 +10,7 @@ export const useAuthStore = defineStore({
     }),
     getters: {},
     actions: {
-        setUser(user:JSON) {
+        setUser(user) {
             this.user = user;
             localStorage.setItem("user", JSON.stringify(user));
             if (user != null) {
@@ -20,7 +19,7 @@ export const useAuthStore = defineStore({
                 this.isLogin = false;
             }
         },
-        login(data:JSON, onSuccess:Function, onError:Function) {
+        login(data, onSuccess, onError) {
             axios
                 .post("/api/auth/login", data)
                 .then((res) => {
@@ -34,7 +33,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        check(onSuccess:Function, onError:Function) {
+        check(onSuccess, onError) {
             const data = {
                 accessToken: this.user.accessToken,
                 refreshToken: this.user.refreshToken,
@@ -76,13 +75,15 @@ export const useAuthStore = defineStore({
                 return true;
             } catch (err) {
                 if (err.response.data != null) {
-                    this.reissue = false;
-                    this.setUser(null);
+
+                            this.reissue = false;
+                            this.setUser(null);
+                            // location.reload();
                 }
                 return false;
             }
         },
-        join(data:JSON, onSuccess:Function, onError:Function) {
+        join(data, onSuccess, onError) {
             axios
                 .post("/api/auth/join", data)
                 .then((res) => {
@@ -92,7 +93,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        logout(onSuccess:Function  ) {
+        logout(onSuccess) {
             this.setUser(null);
             onSuccess();
             // location.href = "/";
@@ -100,6 +101,6 @@ export const useAuthStore = defineStore({
     },
 });
 
-function sleep(ms:number) {
+function sleep(ms) {
     return new Promise((r) => setTimeout(r, ms));
 }
