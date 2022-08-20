@@ -1,12 +1,15 @@
 package com.democracy.jwt;
 
 import com.democracy.common.util.ApplicationPropertiesUtils;
+import com.democracy.redis.RedisService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
 
@@ -14,6 +17,10 @@ import java.util.Date;
 public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
+
+    @Autowired
+    private RedisService redisService;
 
 
 
@@ -39,7 +46,7 @@ public class JwtUtils {
     public String generateRefreshToken(String userId) {
         Long tokenInvalidTime = refreshExpiration * 60 * 1000L;
         String refreshToken = createToken(userId, tokenInvalidTime);
-//        redisService.setValues(refreshToken, userId, Duration.ofMillis(tokenInvalidTime));
+       redisService.setValues(refreshToken, userId, Duration.ofMillis(tokenInvalidTime));
         return refreshToken;
     }
 
@@ -74,14 +81,14 @@ public class JwtUtils {
 
 
 
-//    public Boolean checkRefreshToken(String refreshToken) {
-//        String redisRT = redisService.getValues(refreshToken);
-//        return redisRT == null ? false : true;
-//    }
-//
-//    public void deleteRefreshToken(String refreshToken) {
-//        redisService.deleteValues(refreshToken);
-//    }
+    public Boolean checkRefreshToken(String refreshToken) {
+        String redisRT = redisService.getValues(refreshToken);
+        return redisRT == null ? false : true;
+    }
+
+    public void deleteRefreshToken(String refreshToken) {
+        redisService.deleteValues(refreshToken);
+    }
 
 
 
