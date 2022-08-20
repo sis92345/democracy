@@ -16,7 +16,7 @@
                     show-password/>
         </div>
         <div class="mtb-2">
-          <el-button type="primary">로그인</el-button>
+          <el-button type="primary" @click="()=>{ useRouter().push( '/main' ); }">로그인</el-button>
           <el-button type="info">회원가입</el-button>
         </div>
       </div>

@@ -36,6 +36,12 @@ export default defineNuxtConfig({
         "~/assets/sass/index.scss",
         "~/assets/sass/main.scss"
     ],
+
+    components: {
+        global: true,
+        dirs: ['~/components']
+    },
+
     buildModules: ['@pinia/nuxt'],
     build: {
         transpile: lifecycle === "build" ? ["element-plus"] : []
