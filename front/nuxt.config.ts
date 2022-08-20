@@ -6,6 +6,8 @@ const lifecycle = process.env.npm_lifecycle_event;
 export default defineNuxtConfig({
 
 
+    ssr : false,
+
     app : {
         ...getMetaSetting()
     },
