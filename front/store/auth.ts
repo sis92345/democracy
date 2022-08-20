@@ -10,16 +10,12 @@ export const useAuthStore = defineStore({
     }),
     getters: {},
     actions: {
-        setUser(user) {
+        setUser(user : object ) {
             this.user = user;
             localStorage.setItem("user", JSON.stringify(user));
-            if (user != null) {
-                this.isLogin = true;
-            } else {
-                this.isLogin = false;
-            }
+            this.isLogin = ( user != null );
         },
-        login(data, onSuccess, onError) {
+        login(data : object , onSuccess : Function, onError : Function ) {
             axios
                 .post("/api/auth/login", data)
                 .then((res) => {
@@ -33,7 +29,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        check(onSuccess, onError) {
+        check(onSuccess  : Function , onError  : Function) {
             const data = {
                 accessToken: this.user.accessToken,
                 refreshToken: this.user.refreshToken,
@@ -83,7 +79,7 @@ export const useAuthStore = defineStore({
                 return false;
             }
         },
-        join(data, onSuccess, onError) {
+        join(data : object , onSuccess : Function , onError : Function ) {
             axios
                 .post("/api/auth/join", data)
                 .then((res) => {
@@ -93,7 +89,7 @@ export const useAuthStore = defineStore({
                     onError(err);
                 });
         },
-        logout(onSuccess) {
+        logout(onSuccess  : Function ) {
             this.setUser(null);
             onSuccess();
             // location.href = "/";
@@ -101,6 +97,6 @@ export const useAuthStore = defineStore({
     },
 });
 
-function sleep(ms) {
+function sleep(ms : number) {
     return new Promise((r) => setTimeout(r, ms));
 }
