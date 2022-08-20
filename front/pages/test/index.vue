@@ -9,12 +9,7 @@
 	</div>
 </template>
 <script setup>
-
-import {authInfo} from "../../store/auth";
-
-const auth = authInfo();
-
-import { useFetch, useNuxtApp } from "nuxt/app";
+import { useNuxtApp } from "nuxt/app";
 
 const version = 2 + 1;
 const _vue = useNuxtApp();
