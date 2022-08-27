@@ -1,10 +1,9 @@
 <template>
 	<span>Democracy</span>
 </template>
-<script>
-export default {
-	name : "index.vue"
-}
+<script setup lang="ts">
+	
+	useRouter().push( "/login/login_main" );
 </script>
 <style scoped>
 </style>

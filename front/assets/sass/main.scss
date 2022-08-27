@@ -1,5 +1,14 @@
-/** 메인 SASS */
+/** 공통 SASS */
+
+@import "common";
+
+/** 페이지 SASS */
 
 @import "pages/login";
+
+@import "pages/main";
+
+/** 컴포넌트 SASS */
+@import "assets/sass/components/list/memberList";
 
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet&display=swap');
