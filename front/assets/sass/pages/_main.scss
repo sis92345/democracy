@@ -15,11 +15,20 @@
       border-width: 2px;
     }
 
-    &__title {
+    &__header {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       span {
         font-size: 20px;
         font-weight: bold;
+      }
+
+      .el-button {
+        background-color: lightgrey;
+        border: none;
       }
     }
   }

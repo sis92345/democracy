@@ -1,7 +1,25 @@
 <script setup>
-const MyButton = resolveComponent( "list/memberList" )
-console.log( MyButton )
-const boolean = ref(true)
+
+import { ArrowLeftBold } from '@element-plus/icons-vue';
+
+const memberList = markRaw( resolveComponent( "list/memberList" ) );
+const sideMenu = markRaw( resolveComponent( "sidebar/side-menu" ) );
+
+const data = reactive({ selectedList: sideMenu });
+
+
+const UI = {
+	
+	beforeMenu() {
+		
+		data.selectedList = markRaw( sideMenu );
+	},
+	
+	changeMenu( key ) {
+		
+		data.selectedList = markRaw( memberList );
+	}
+}
 </script>
 
 <template>
@@ -9,24 +27,17 @@ const boolean = ref(true)
 	<el-container class="main_container">
 		<el-aside class="list_container">
 		
-			<div class="list_container__title m-box-1">
+			<div class="list_container__header m-box-1">
 				<span>Member</span>
+				<el-button :icon="ArrowLeftBold" @click="UI.beforeMenu"/>
 			</div>
 			<el-divider border-style="dashed" />
-			<component :is="boolean ? MyButton : 'div'" />
+			<component :is="data.selectedList"
+			           @click-menu="UI.changeMenu"
+			/>
 		</el-aside>
 		
 		<el-container>
-			<el-header class="header-container">
-				<div class="header-container__left-area ml-1">
-					<span>체팅 해더</span>
-				</div>
-				
-				<div class="header-container__right-area">
-					<span>기타 선택 창</span>
-				</div>
-			</el-header>
-			
 			<el-main class="main_container">
 				<div>
 					<img class="logo" src="@/assets/image/logo/democracy3.png"  alt="logo"/>
