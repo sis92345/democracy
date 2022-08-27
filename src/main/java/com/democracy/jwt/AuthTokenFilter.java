@@ -1,6 +1,6 @@
 package com.democracy.jwt;
 
-import com.democracy.member.service.CustomUserDetailsService;
+import com.democracy.service.member.dao.CustomUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

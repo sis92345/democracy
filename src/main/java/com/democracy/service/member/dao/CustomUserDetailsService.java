@@ -1,4 +1,4 @@
-package com.democracy.member.service;
+package com.democracy.service.member.dao;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

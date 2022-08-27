@@ -1,28 +1,28 @@
-package com.democracy.member.service.impl;
+package com.democracy.service.member.impl;
 
-import com.democracy.member.dto.User;
-import com.democracy.member.service.CustomUserDetailsService;
-import com.democracy.member.service.JwtUserRepository;
+import com.democracy.service.member.dao.CustomUserDetailsService;
+import com.democracy.service.member.dto.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
+//
+//    private final JwtUserRepository jwtUserRepository;
 
-    private final JwtUserRepository jwtUserRepository;
+    @Autowired
+    private JwtUserBridge jwtUserBridge;
 
-    public CustomUserDetailsServiceImpl(JwtUserRepository jwtUserRepository) {
-        this.jwtUserRepository = jwtUserRepository;
-    }
+//    public CustomUserDetailsServiceImpl(JwtUserRepository jwtUserRepository) {
+//        this.jwtUserRepository = jwtUserRepository;
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> op = jwtUserRepository.findById(username);
 
-        User user = op.orElse(null);
+        User user = jwtUserBridge.select(username);
 
 
         if (user == null) {

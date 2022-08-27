@@ -2,7 +2,7 @@ package com.democracy.config;
 
 import com.democracy.jwt.AuthEntryPointJwt;
 import com.democracy.jwt.AuthTokenFilter;
-import com.democracy.member.service.CustomUserDetailsService;
+import com.democracy.service.member.dao.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -57,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
 ////			.antMatchers("/api/detail").hasRole("ADMIN")
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/auth/**").anonymous()
+                .antMatchers("/api/auth/join").anonymous()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

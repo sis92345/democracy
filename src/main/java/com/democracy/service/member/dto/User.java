@@ -1,4 +1,4 @@
-package com.democracy.member.dto;
+package com.democracy.service.member.dto;
 
 import lombok.Getter;
 import lombok.Setter;

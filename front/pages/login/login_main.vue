@@ -26,12 +26,27 @@
 <script setup>
 import {authInfo} from "../../store/auth";
 
-const user  = {
-  id:"",
-  pw:""
-}
 
 const auth = authInfo();
+
+function join() {
+  const data = {
+    id_user: "123",
+    pw_user:"123",
+    nm_user:"123"
+  };
+  auth.join(
+      data,
+      (res) => {
+        alert(res);
+      },
+      (err) => {
+        alert(err);
+      }
+  );
+}
+
+join();
 
 </script>
 <style scoped>
