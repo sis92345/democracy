@@ -1,36 +1,37 @@
 package com.democracy;
 
 import com.democracy.config.StandardSpringTest;
-import com.democracy.member.service.MemberRepository;
-import com.democracy.member.dto.Member;
-import com.democracy.member.service.MemberService;
+import com.democracy.redis.RedisService;
+import com.democracy.service.member.MemberService;
+import com.democracy.service.member.dto.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-import java.util.List;
-
 class JPAConnectionTest extends StandardSpringTest {
-		
+
 		@Autowired
-		MemberRepository memberRepository;
-		
-		@Autowired MemberService memberService;
-		
+        private MemberService memberService;
+
+		@Autowired
+		RedisService redisService;
+
+
 		@Test
 		@DisplayName( "member 테이블 저장 테스트" )
 		public void SAVE_MEMBER_TEST() {
-				
-				Member member = new Member();
-				member.setId( "asd1234" );
-				member.setInputDate( LocalDate.now() );
-				member.setEmail( "test@example.co.kr" );
-				member.setJoinType( 0 );
-				member.setPassword( "test1" );
-				
-				member = memberService.save( member );
-				
-				System.out.println( member );
+            User user = memberService.select("admin");
+            System.out.println(user);
+
 		}
+
+
+
+	@Test
+	@DisplayName( "member 테이블 저장 테스트" )
+	public void Redis_test_Sample() {
+		redisService.setValues("test","test");
+
+		System.out.println(redisService.getValues("test"));
+	}
 }

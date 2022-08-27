@@ -7,14 +7,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DataSourceConfig {
 		
-		@Bean( name = "dev-datasource" )
+
+		@Bean( name = "local-datasource" )
 		public HikariConfig localHikariConfig() {
 				
 				HikariConfig hikariConfig = new HikariConfig();
 				
-				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://15.165.158.252:3306/democracy" );
-				hikariConfig.setUsername( "democracy" );
-				hikariConfig.setPassword( "1234" );
+				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://spring-boot-rds.cqxwdww0wc0s.ap-northeast-2.rds.amazonaws.com:3306/democracy" );
+				hikariConfig.setUsername( "root" );
+				hikariConfig.setPassword( "123456789" );
 				hikariConfig.setDriverClassName( "net.sf.log4jdbc.sql.jdbcapi.DriverSpy" );
 				
 				// MinumumIdle : 일하지 않는 Connection을 유지하는 설정
@@ -31,15 +32,15 @@ public class DataSourceConfig {
 				
 				return hikariConfig;
 		}
-		
-		@Bean( name = "local-datasource" )
+
+		@Bean( name = "dev-datasource" )
 		public HikariConfig devHikariConfig() {
 				
 				HikariConfig hikariConfig = new HikariConfig();
 				
-				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://15.165.158.252:3306/democracy" );
-				hikariConfig.setUsername( "democracy" );
-				hikariConfig.setPassword( "1234" );
+				hikariConfig.setJdbcUrl( "jdbc:log4jdbc:mysql://spring-boot-rds.cqxwdww0wc0s.ap-northeast-2.rds.amazonaws.com:3306/democracy" );
+				hikariConfig.setUsername( "root" );
+				hikariConfig.setPassword( "123456789" );
 				hikariConfig.setDriverClassName( "net.sf.log4jdbc.sql.jdbcapi.DriverSpy" );
 				
 				// MinumumIdle : 일하지 않는 Connection을 유지하는 설정

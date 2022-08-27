@@ -1,9 +1,8 @@
-import axios from "axios";
+import axios, {AxiosInstance} from "axios";
 
 export default defineNuxtPlugin(nuxtApp => {
-    const domain = 'http://localhost:8080';
 
-    const serverApi = axios.create();
+    const serverApi : AxiosInstance = axios.create();
 
     return {
         provide: {
