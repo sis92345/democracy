@@ -1,11 +1,29 @@
 <script setup>
 
 import { ArrowLeftBold } from '@element-plus/icons-vue';
+import { ref } from "vue";
+import {authInfo} from "../../store/auth";
+const $router = useRouter();
+const  auth = authInfo();
 
 const memberList = markRaw( resolveComponent( "list/memberList" ) );
 const sideMenu = markRaw( resolveComponent( "sidebar/side-menu" ) );
 
 const data = reactive({ selectedList: sideMenu });
+
+
+
+if (auth.user != null) {
+  auth.check(() => {
+      $router.replace("/main");
+  });
+} else {
+  auth.isLogin = false;
+}
+
+if(auth.isLogin == false){
+	$router.push("/login/login_main")
+}
 
 
 const UI = {

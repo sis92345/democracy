@@ -17,16 +17,20 @@
         </div>
         <div class="mtb-2">
           <el-button type="primary" @click="login()">로그인</el-button>
-          <el-button type="info">회원가입</el-button>
+          <el-button type="info" @click="dialogFormVisible = !dialogFormVisible">회원가입</el-button>
         </div>
       </div>
     </div>
+    <join-dialog :dialogFormVisible="dialogFormVisible" @closePopUp="() => {dialogFormVisible = false}"></join-dialog>
   </div>
 </template>
 <script setup>
 import {authInfo} from "../../store/auth";
-import { reactive } from "vue";
+import { reactive,ref } from "vue";
+import join_dialog from "../../components/join/join_dialog.vue"
 
+
+const dialogFormVisible = ref(false)
 const state = reactive({
   id: "",
   password: "",
