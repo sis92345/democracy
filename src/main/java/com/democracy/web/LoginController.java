@@ -78,8 +78,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<BasicResponse> login(@RequestBody Map<String, Object> map) {
-        String id = MapUtils.getString(map, "user_id");
-        String password = MapUtils.getString(map, "user_pw");
+        String id = MapUtils.getString(map, "id");
+        String password = MapUtils.getString(map, "password");
 
         Authentication authentication = authenticationManager
                 .authenticate(

@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    private static final String HOST = "3.39.9.169";
+    private static final String HOST = "13.125.237.195";
 
     private static final int PORT = 6379;
 
